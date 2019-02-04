@@ -16,7 +16,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Toolbar from '@material-ui/core/Toolbar';
 import Typography from '@material-ui/core/Typography';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '../../components/Button/Button';
+import { NavLink } from 'react-router-dom';
 
 const drawerWidth = 240;
 
@@ -62,10 +62,6 @@ class ResponsiveDrawer extends React.Component {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
     };
 
-    handleMenuChange = (menuItem) => {
-        this.setState({ currentMenu: menuItem });
-    }
-
     render() {
         const { classes, theme } = this.props;
 
@@ -74,20 +70,16 @@ class ResponsiveDrawer extends React.Component {
                 <div className={classes.toolbar} />
                 <Divider />
                 <List>
-                    {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-                        <ListItem button key={text} onClick={() => this.handleMenuChange(text)}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
-                    ))}
-                </List>
-                <Divider />
-                <List>
-                    {['All mail', 'Trash', 'Spam'].map((text, index) => (
-                        <ListItem button key={text}>
-                            <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
-                            <ListItemText primary={text} />
-                        </ListItem>
+                    {['Activity', 'Profile'].map((text, index) => (
+                        <NavLink
+                            key={text}
+                            to={'/' + text.toLowerCase()}
+                            style={{ textDecoration: 'none', color: 'inherit' }}>
+                            <ListItem button key={text}>
+                                <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
+                                <ListItemText primary={text} />
+                            </ListItem>
+                        </NavLink>
                     ))}
                 </List>
             </div>
@@ -140,7 +132,7 @@ class ResponsiveDrawer extends React.Component {
                 </nav>
                 <main className={classes.content}>
                     <div className={classes.toolbar} />
-                    <Button />
+                    {this.props.children}
                 </main>
             </div>
         );
