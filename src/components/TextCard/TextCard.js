@@ -1,5 +1,4 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Card from '@material-ui/core/Card';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
@@ -22,7 +21,7 @@ function TextCard(props) {
     return (
         <div>
             <StyledCard>
-                <StyledCardActionArea onClick={props.handleCardEdit}>
+                <StyledCardActionArea onClick={() => props.clicked('content')}>
                     <StyledCardContent>
                         {props.content}
                     </StyledCardContent>
@@ -31,9 +30,5 @@ function TextCard(props) {
         </div>
     );
 }
-
-TextCard.propTypes = {
-    classes: PropTypes.object.isRequired,
-};
 
 export default TextCard;

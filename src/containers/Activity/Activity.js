@@ -8,12 +8,21 @@ class Activity extends Component {
         tcardContent: 'Two Card Content'
     };
 
+    handleYCardEdit = (content) => {
+        this.setState({ ycardContent: content });
+        console.log('here');
+    }
+
+    handleTCardEdit = (content) => {
+        this.setState({ tcardContent: content });
+    }
+
     render() {
         return (
             <div>
                 Activity Page
-            <TextCard content={this.state.ycardContent} />
-                <TextCard content={this.state.tcardContent} />
+            <TextCard content={this.state.ycardContent} clicked={this.handleYCardEdit} />
+                <TextCard content={this.state.tcardContent} clicked={this.handleTCardEdit} />
             </div>
         );
     }
