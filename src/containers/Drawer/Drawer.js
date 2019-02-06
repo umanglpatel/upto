@@ -55,11 +55,15 @@ const styles = theme => ({
 class ResponsiveDrawer extends React.Component {
     state = {
         mobileOpen: false,
-        currentMenu: 'home'
+        currentMenu: 'Activity'
     };
 
     handleDrawerToggle = () => {
         this.setState(state => ({ mobileOpen: !state.mobileOpen }));
+    };
+
+    handleMenuClick = (menuItem) => {
+        this.setState({ currentMenu: menuItem });
     };
 
     render() {
@@ -75,7 +79,7 @@ class ResponsiveDrawer extends React.Component {
                             key={text}
                             to={'/' + text.toLowerCase()}
                             style={{ textDecoration: 'none', color: 'inherit' }}>
-                            <ListItem button key={text}>
+                            <ListItem button key={text} onClick={() => this.handleMenuClick(text)}>
                                 <ListItemIcon>{index % 2 === 0 ? <InboxIcon /> : <MailIcon />}</ListItemIcon>
                                 <ListItemText primary={text} />
                             </ListItem>
@@ -99,8 +103,8 @@ class ResponsiveDrawer extends React.Component {
                             <MenuIcon />
                         </IconButton>
                         <Typography variant="h6" color="inherit" noWrap>
-                            Responsive drawer
-            </Typography>
+                            {this.state.currentMenu}
+                        </Typography>
                     </Toolbar>
                 </AppBar>
                 <nav className={classes.drawer}>

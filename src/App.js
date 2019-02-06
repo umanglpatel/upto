@@ -12,8 +12,9 @@ class App extends Component {
       <div className="App">
         <Drawer>
           <Switch>
-            <Route path="/activity" component={Activity} />
             <Route path="/profile" exact component={Profile} />
+            <Route path="/activity" exact component={Activity} />
+            <Route path="/" exact component={Activity} />
           </Switch>
         </Drawer>
       </div>
