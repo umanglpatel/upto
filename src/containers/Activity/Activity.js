@@ -1,10 +1,10 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import TextCard from '../../components/TextCard/TextCard';
 import FormDialog from '../../components/FormDialog/FormDialog';
 
-class Activity extends Component {
+function Activity() {
 
-    state = {
+    const [state, setState] = useState({
         ycard: {
             content: 'One Card Content',
             edit: false
@@ -14,33 +14,37 @@ class Activity extends Component {
             edit: false
         },
         tempContent: ''
-    };
+    });
 
-    handleClose = () => {
-        this.setState({
+    const handleClose = () => {
+        setState({
+            ...state,
             ycard: {
-                ...this.state.ycard,
+                ...state.ycard,
                 edit: false
             }
         });
     }
-    handleSave = (content) => {
-        this.setState({
+    const handleSave = (content) => {
+        setState({
+            ...state,
             ycard: {
-                ...this.state.ycard,
-                content: this.state.tempContent,
+                ...state.ycard,
+                content: state.tempContent,
                 edit: false
             }
         });
     }
-    handleContentChange = (event) => {
+    const handleContentChange = (event) => {
         event.preventDefault();
-        this.setState({
+        setState({
+            ...state,
             tempContent: event.target.value
         });
     }
-    handleYCardEdit = (content) => {
-        this.setState({
+    const handleYCardEdit = (content) => {
+        setState({
+            ...state,
             ycard: {
                 edit: true,
                 content: content
@@ -50,8 +54,9 @@ class Activity extends Component {
         console.log('here');
     }
 
-    handleTCardEdit = (content) => {
-        this.setState({
+    const handleTCardEdit = (content) => {
+        setState({
+            ...state,
             tcard: {
                 edit: true,
                 content: content
@@ -59,31 +64,30 @@ class Activity extends Component {
         });
     }
 
-    testHandler = () => {
-        this.setState({ tcardContent: 'this.test' });
+    const testHandler = () => {
+        setState({ ...state, tcardContent: 'test' });
     }
 
-    render() {
-        return (
-            <div>
-                Activity Page
+    return (
+        <div>
+            Activity Page
             <TextCard
-                    content={this.state.ycard.content}
-                    clicked={this.handleYCardEdit}
-                    edit={this.state.ycard.edit} />
-                <TextCard
-                    content={this.state.tcard.content}
-                    clicked={this.handleTCardEdit}
-                    edit={this.state.tcard.edit} />
-                <FormDialog
-                    edit={this.state.ycard.edit}
-                    close={() => this.handleClose}
-                    content={this.state.ycard.content}
-                    save={() => this.handleSave}
-                    change={() => this.handleContentChange} />
-            </div>
-        );
-    }
+                content={state.ycard.content}
+                clicked={handleYCardEdit}
+                edit={state.ycard.edit}
+            />
+            <TextCard
+                content={state.tcard.content}
+                clicked={handleTCardEdit}
+                edit={state.tcard.edit} />
+            <FormDialog
+                edit={state.ycard.edit}
+                close={() => handleClose}
+                content={state.ycard.content}
+                save={() => handleSave}
+                change={() => handleContentChange} />
+        </div>
+    );
 }
 
 export default Activity;
